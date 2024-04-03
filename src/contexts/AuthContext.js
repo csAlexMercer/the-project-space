@@ -1,5 +1,5 @@
 import { createContext, useEffect, useReducer } from "react";
-import { projectAuth } from "../firebase/config";
+import { projectAuth, projectFirestore } from "../firebase/config";
 
 export const AuthContext = createContext()
 
@@ -23,11 +23,26 @@ export const AuthContextProvider = ({ children }) => {
     })
 
     useEffect(() => {
-        const unsub = projectAuth.onAuthStateChanged((user) => {
-            dispatch({ type: 'AUTH_IS_READY', payload: user})
-            unsub()
-        })
+        const unsub = projectAuth.onAuthStateChanged(async (userAuth) => {
+            if (userAuth) {
+                // Fetch user data from Firestore
+                const userRef = projectFirestore.collection('users').doc(userAuth.uid);
+                const userDoc = await userRef.get();
+
+                if (userDoc.exists) {
+                    const userData = userDoc.data();
+                    dispatch({ type: 'AUTH_IS_READY', payload: { ...userData, uid: userAuth.uid }});
+                } else {
+                    console.log("No such document!");
+                }
+            } else {
+                dispatch({ type: 'AUTH_IS_READY', payload: null });
+            }
+        });
+
+        return unsub;
     }, [])
+
     console.log('AuthContext state:', state)
 
     return (

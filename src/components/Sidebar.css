@@ -18,6 +18,11 @@
     padding: 40px 30px;
     border-bottom: 1px solid rgba(255,255,255,0.2);
   }
+  .user .department {
+    font-size: smaller;
+    font-weight: lighter;
+    margin-left: 5px;
+  }
   .sidebar .links {
     margin-top: 80px;
     margin-left: 20px;

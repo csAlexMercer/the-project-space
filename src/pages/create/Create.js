@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import Select from 'react-select'
 import { useCollection } from '../../hooks/useCollection'
 import { useAuthContext } from '../../hooks/useAuthContext'
@@ -8,13 +8,12 @@ import { useHistory } from 'react-router-dom'
 
 // styles
 import './Create.css'
-import { useEffect } from 'react'
 
 const categories = [
-  { value: 'development', label: 'development'},
-  { value: 'design', label: 'design'},
-  { value: 'sales', label: 'sales'},
-  { value: 'marketing', label: 'marketing'}
+  { value: 'Development', label: 'Development'},
+  { value: 'Design', label: 'Design'},
+  { value: 'Sales', label: 'Sales'},
+  { value: 'Marketing', label: 'Marketing'}
 ]
 
 export default function Create() {
@@ -24,7 +23,6 @@ export default function Create() {
   const { documents } = useCollection('users')
   const [users, setUsers] = useState([])
   const [formError, setFormError] = useState(null)
-  // form field values
   const [name, setName] = useState('')
   const [details, setDetails] = useState('')
   const [dueDate, setDueDate] = useState('')
@@ -33,11 +31,14 @@ export default function Create() {
 
   useEffect(() => {
     if (documents) {
-      setUsers(documents.map(user => {
-        return { value: user, label: user.displayName }
-      }))
+      // Filter users based on selected category
+      const filteredUsers = documents.filter(doc => doc.department === category.value)
+      setUsers(filteredUsers.map(user => ({
+        value: user,
+        label: user.displayName
+      })))
     }
-  }, [documents])
+  }, [documents, category])
 
   const handleSubmit = async (e) => {
     e.preventDefault()
@@ -50,13 +51,11 @@ export default function Create() {
       return
     }
 
-    const assignedUsersList = assignedUsers.map(u => {
-      return {
-        displayName: u.value.displayName,
-        photoURL: u.value.photoURL,
-        id: u.value.id
-      }
-    })
+    const assignedUsersList = assignedUsers.map(u => ({
+      displayName: u.value.displayName,
+      photoURL: u.value.photoURL,
+      id: u.value.id
+    }))
     const createdBy = {
       displayName: user.displayName,
       photoURL: user.photoURL,
@@ -98,7 +97,7 @@ export default function Create() {
           <input
             required
             type="text"
-            onChange={handleNameChange} // Updated to handle only alphabetical characters
+            onChange={handleNameChange}
             value={name}
           />
         </label>
@@ -106,7 +105,7 @@ export default function Create() {
           <span>Project Details:</span>
           <textarea
             required
-            onChange={handleDetailsChange} // Updated to handle only alphabetical characters
+            onChange={handleDetailsChange}
             value={details}
           ></textarea>
         </label>
@@ -137,4 +136,4 @@ export default function Create() {
       </form>
     </div>
   )
-}
+  }

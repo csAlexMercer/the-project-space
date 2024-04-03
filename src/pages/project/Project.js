@@ -5,7 +5,7 @@ import { useDocument } from '../../hooks/useDocument'
 import './Project.css'
 import ProjectSummary from "./ProjectSummary"
 import ProjectComments from "./ProjectComments"
-import ProjectUpdates from "./ProjectUpdates"
+
 
 export default function Project() {
   const { id } = useParams()

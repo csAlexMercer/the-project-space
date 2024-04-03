@@ -6,3 +6,44 @@
     box-shadow: 3px 3px 5px rgba(0,0,0,0.05);
     background: #fff;
   }
+
+  label {
+    display: block;
+    margin-bottom: 20px;
+  }
+  
+  /* Style for dropdown menu */
+  select {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    background-color: #fff;
+    font-size: 16px;
+    color: #555;
+    outline: none;
+    transition: border-color 0.2s;
+  }
+  
+  select:focus {
+    border-color: #007bff;
+  }
+  
+  select::-ms-expand {
+    display: none;
+  }
+  
+  select::after {
+    content: '\25BC';
+    position: absolute;
+    top: 50%;
+    right: 10px;
+    transform: translateY(-50%);
+    pointer-events: none;
+    color: #555;
+  }
+  
+  option {
+    background-color: #fff;
+    color: #555;
+  }
