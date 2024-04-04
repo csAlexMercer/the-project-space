@@ -4,12 +4,12 @@ import { useHistory } from 'react-router-dom'
 import { useAuthContext } from "../../hooks/useAuthContext"
 
 export default function ProjectSummary({ project }) {
-  const { deleteDocument } = useFirestore('projects')
+  const { updateDocument } = useFirestore('projects')
   const { user } = useAuthContext()
   const history = useHistory()
 
   const handleClick = () => {
-    deleteDocument(project.id)
+    updateDocument(project.id, { markedComplete: true})
     history.push('/')
   }
   return (

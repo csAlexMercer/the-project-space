@@ -121,7 +121,7 @@ export default function ProjectComments({ project }) {
           ))}
       </ul>
 
-      <form className="add-comment" onSubmit={handleSubmit}>
+      {!project.markedComplete && <form className="add-comment" onSubmit={handleSubmit}>
         <label>
           <span>Add new comment:</span>
           <textarea
@@ -136,7 +136,7 @@ export default function ProjectComments({ project }) {
           {thumbnailError && <div className="error">{thumbnailError}</div>}
         </label>
         <button className="btn">Add Comment</button>
-      </form>
+      </form>}
 
       {/* Full screen image display */}
       {fullScreenImage && (

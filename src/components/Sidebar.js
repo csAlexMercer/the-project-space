@@ -26,12 +26,12 @@ export default function Sidebar() {
                                 <span>Dashboard</span>
                             </NavLink>
                         </li>
-                        <li>
+                        {user.department == "Manager" && <li>
                             <NavLink to='/create'>
                                 <img src={AddIcon} alt='addicon'/>
                                 <span>New Project</span>
                             </NavLink>
-                        </li>
+                        </li>}
                     </ul>
                 </nav>
             </div>     

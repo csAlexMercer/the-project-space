@@ -69,6 +69,7 @@ export default function Create() {
       dueDate: timestamp.fromDate(new Date(dueDate)),
       assignedUsersList,
       createdBy,
+      markedComplete: false,
       comments: []
     }
 

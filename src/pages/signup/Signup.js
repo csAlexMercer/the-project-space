@@ -8,7 +8,7 @@ export default function Signup() {
   const [displayName, setDisplayName] = useState('')
   const [thumbnail, setThumbnail] = useState(null)
   const [thumbnailError, setThumbnailError] = useState('')
-  const [department, setDepartment] = useState('development') // Default department
+  const [department, setDepartment] = useState('Development') // Default department
 
   const { signup, isPending, error } = useSignup()
 
